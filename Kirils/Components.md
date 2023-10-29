@@ -1,5 +1,5 @@
 **Arduino NANO:**<BR>
-Kompakta plate, kas balstīta uz ATmega328P. Tā piedāvā tādu pašu funkcionalitāti kā Arduino Uno, bet mazākā iepakojumā.  https://ali.ski/TPR0i 
+Kompakta plate, kas balstīta uz ATmega328P. Tā piedāvā tādu pašu funkcionalitāti kā Arduino Uno, bet mazākā iepakojumā.  
 
 **Sensora poga:**<BR> Ierīce, kas uztver fizisku ievadi pat caur planu plastiku un nosūta signālu mikrokontrolierim. Tā ir vienkārši lietojama un viegli intergrējama.
 
