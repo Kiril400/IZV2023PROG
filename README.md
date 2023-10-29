@@ -9,3 +9,6 @@ Dalībnieki: Kirils Koļesņikovs (darba plānā atzīmēts ar zaļo krāsu), Il
 Darba plāns 02/10 - 30/10:
 
 ![image](https://github.com/Kiril400/IZV2023PROG/assets/144676503/995b8bcb-9906-4ec4-b1d5-13b84aba8610)
+
+Darba plāns 30/10 - 01/12:
+![image](![image](https://github.com/Kiril400/IZV2023PROG/assets/144676168/8571c2a9-f2a9-48cc-a865-c8d1f52f0313)
