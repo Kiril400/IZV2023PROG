@@ -1,7 +1,7 @@
 **Arduino NANO:**<BR>
 Kompakta plate, kas balstīta uz ATmega328P. Tā piedāvā tādu pašu funkcionalitāti kā Arduino Uno, bet mazākā iepakojumā.  
 
-**Sensora poga:**<BR> Ierīce, kas uztver fizisku ievadi pat caur planu plastiku un nosūta signālu mikrokontrolierim. Tā ir vienkārši lietojama un viegli intergrējama.
+**Sensora poga (TTP223):**<BR> Ierīce, kas uztver fizisku ievadi pat caur planu plastiku un nosūta signālu mikrokontrolierim. Tā ir vienkārši lietojama un viegli intergrējama.
 
 **BME280 (5V):**<BR> Precīzs Bosch sensors, kas mēra mitrumu, spiedienu un temperatūru. Liela precizitāte un zems enerģijas patēriņš.
 
