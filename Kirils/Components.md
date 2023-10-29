@@ -9,5 +9,5 @@ Kompakta plate, kas balstīta uz ATmega328P. Tā piedāvā tādu pašu funkciona
 
 **Display2004 i2c:**<BR> 20x4 rakstzīmju LCD modulis ar I2C interfeisu. To novērtē par tā lietošanas ērtumu un skaidru displeju.
 
-**DS3231:** <BR>Ļoti precīzs reālā laika pulksteņa modulis. Tam ir integrēts temperatūras kompensēts kristāla oscilators, nodrošinot lielisku laika norādi.<br>
-Visas komponentes ir iegadajāmas Lemona.lv vai aliexpress.com 
+**DS3231:** <BR>Ļoti precīzs reālā laika pulksteņa modulis. Tam ir integrēts temperatūras kompensēts kristāla oscilators, nodrošinot lielisku laika norādi.<br><br>
+**Visas komponentes ir iegadajāmas Lemona.lv vai aliexpress.com**
