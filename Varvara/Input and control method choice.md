@@ -1,2 +1,1 @@
-
-Input device options and compering them. Description of our choise.
+Sensoru pogām, kas pazīstamas arī kā kapacitatīvās skārienjutīgās vai skārienjutīgās pogas, ir priekšrocības salīdzinājumā ar tradicionālajām spiedpogu un potenciometriem, viens no galvenajiem ir izturība: sensoru pogām nav fizisku kustīgu detaļu, tādējādi samazinot to nolietojumu laika gaitā. Mehāniskās pogas var nolietoties atkārtotas lietošanas rezultātā, un potenciometri var nolietoties mehāniskā kontakta (berzes?) dēļ.
