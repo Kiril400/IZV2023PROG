@@ -1,3 +1,5 @@
+//This code is for interfacing with a DS3231 Real-Time Clock (RTC) module using an Arduino. 
+//It sets and reads the time and date from the DS3231 module and displays it over a serial interface. 
 #include "Wire.h"
 // Include the Wire library for I2C communication.
 #define DS3231_I2C_ADDRESS 0x68
