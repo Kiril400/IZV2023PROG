@@ -1,3 +1,7 @@
+// this code is designed to monitor a capacitive touch switch connected to pin 2 of an Arduino. 
+// When the sensor is touched, it prints a message to the serial monitor. 
+// The loop continues to check the sensor's status, and once the touch is released, it exits the loop. 
+// This code serves as a basic example of how to interface with a touch sensor and respond to touch events using an Arduino.
 /*
   TTP223B-Capacitive-Touch-Switch-Module
 */
