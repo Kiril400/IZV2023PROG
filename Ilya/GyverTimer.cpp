@@ -1,3 +1,6 @@
+// The provided code is part of the "GyverTimer" library, which offers flexible timer functionality for Arduino projects. 
+// This code defines the behavior of the GTimer and GTimer_ms classes, which are used for timer management.
+// This code defines the core functionality of timers, both in milliseconds and microseconds.
 #include "GyverTimer.h"
 // Include the GyverTimer library for timer functionality.
 
