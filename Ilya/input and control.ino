@@ -2,9 +2,7 @@
 // When the sensor is touched, it prints a message to the serial monitor. 
 // The loop continues to check the sensor's status, and once the touch is released, it exits the loop. 
 // This code serves as a basic example of how to interface with a touch sensor and respond to touch events using an Arduino.
-/*
-  TTP223B-Capacitive-Touch-Switch-Module
-*/
+// TTP223B-Capacitive-Touch-Switch-Module
 const int SENSOR_PIN = 2;
 // Declare a constant integer SENSOR_PIN and set it to pin 2. This is the pin connected to the touch sensor.
 
