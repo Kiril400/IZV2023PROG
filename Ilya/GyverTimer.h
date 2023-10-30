@@ -1,4 +1,7 @@
- #ifndef GyverTimer_h
+// The "GyverTimer" library appears to be a custom Arduino library designed for timer management. 
+// It provides various timer classes that allow you to work with timers in both microseconds (US) and milliseconds (MS).
+// It provides functionality for setting intervals, timeouts, starting, stopping, and checking the status of timers.
+#ifndef GyverTimer_h
 #define GyverTimer_h
 // Header guard: Prevents double inclusion of the library.
 
