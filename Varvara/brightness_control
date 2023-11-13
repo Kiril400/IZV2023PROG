@@ -1,0 +1,20 @@
+void checkBrightness() {
+  if (analogRead(PHOTO_SENSOR) < BRIGHTNESS_THRESHOLD) {   // if it's dark
+    analogWrite(BACKLIGHT_PIN, LCD_MIN_BRIGHTNESS);
+#if (LED_MODE == 0)
+    LED_ON = (LED_MIN_BRIGHTNESS);
+#else
+    LED_ON = (255 - LED_MIN_BRIGHTNESS);
+#endif
+  } else {                                      // if it's bright
+    analogWrite(BACKLIGHT_PIN, LCD_MAX_BRIGHTNESS);
+#if (LED_MODE == 0)
+    LED_ON = (LED_MAX_BRIGHTNESS);
+#else
+    LED_ON = (255 - LED_MAX_BRIGHTNESS);
+#endif
+  }
+  if (CO2_level < 800) setLED(2);
+  else if (CO2_level < 1200) setLED(3);
+  else if (CO2_level >= 1200) setLED(1);
+}
