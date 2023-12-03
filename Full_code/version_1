@@ -1,0 +1,95 @@
+// Include libraries
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include "RTClib.h"
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
+#include <MHZ19_uart.h>
+#include <GyverTimer.h>
+#include "GyverButton.h"
+
+// Constants for clock and sensor settings
+#define INITIALIZE_CLOCK 0
+#define SENSOR_UPDATE_INTERVAL 30000
+#define LED_CATHODE 0
+#define LED_INTENSITY 255
+#define YELLOW_INSTEAD_BLUE 1
+#define DISPLAY_MODE 1
+#define WEEKDAY_LANGUAGE 1
+#define DEBUG_MODE 0
+#define PRESSURE_MODE 1
+#define CO2_SENSOR_ENABLE 1
+#define DISPLAY_TYPE_SELECTION 1
+#define DISPLAY_ADDRESS 0x27
+
+// Display limits for graphs
+#define TEMP_MIN_LIMIT 15
+#define TEMP_MAX_LIMIT 35
+#define HUMIDITY_MIN_LIMIT 0
+#define HUMIDITY_MAX_LIMIT 100
+#define PRESSURE_MIN_LIMIT -100
+#define PRESSURE_MAX_LIMIT 100
+#define CO2_MIN_LIMIT 300
+#define CO2_MAX_LIMIT 2000
+
+// Pin configurations
+#define MHZ_RX_PIN 2
+#define MHZ_TX_PIN 3
+#define LED_COMMON_PIN 7
+#define LED_RED_PIN 9
+#define LED_GREEN_PIN 6
+#define LED_BLUE_PIN 5
+#define BUTTON_PIN 4
+
+// Initialize objects
+LiquidCrystal_I2C lcd(DISPLAY_ADDRESS, (DISPLAY_TYPE_SELECTION == 1) ? 20 : 16, 4);
+RTC_DS3231 rtc;
+DateTime now;
+Adafruit_BME280 bme;
+#if (CO2_SENSOR_ENABLE == 1)
+MHZ19_uart mhz19;
+#endif
+GTimer_ms sensorsTimer(SENSOR_UPDATE_INTERVAL);
+GTimer_ms drawSensorsTimer(SENSOR_UPDATE_INTERVAL);
+GTimer_ms clockTimer(500);
+GTimer_ms hourPlotTimer((long)4 * 60 * 1000);
+GTimer_ms dayPlotTimer((long)1.6 * 60 * 60 * 1000);
+GTimer_ms plotTimer(240000);
+GTimer_ms predictTimer((long)10 * 60 * 1000);
+GButton button(BUTTON_PIN, LOW_PULL, NORM_OPEN);
+
+int8_t hours, minutes, seconds;
+byte displayMode = 0;
+
+// Variables for display
+float displayTemperature;
+byte displayHumidity;
+int displayPressure;
+int displayCO2;
+int displayRain;
+
+// Arrays for graphs
+int temperatureHour[15], temperatureDay[15];
+int humidityHour[15], humidityDay[15];
+int pressureHour[15], pressureDay[15];
+int co2Hour[15], co2Day[15];
+int delta;
+uint32_t pressureArray[6];
+uint32_t sumX, sumY, sumX2, sumXY;
+float a, b;
+byte timeArray[6];
+
+// Symbols
+// Graph
+byte graphRow8[8] = {0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111};
+byte graphRow7[8] = {0b00000, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111};
+byte graphRow6[8] = {0b00000, 0b00000, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111};
+byte graphRow5[8] = {0b00000, 0b00000, 0b00000, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111};
+byte graphRow4[8] = {0b00000, 0b00000, 0b00000, 0b00000, 0b11111, 0b11111, 0b11111, 0b11111};
+byte graphRow3[8] = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b11111, 0b11111, 0b11111};
+byte graphRow2[8] = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b11111, 0b11111};
+byte graphRow1[8] = {0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000, 0b11111};
+
+// Digits
+uint8_t LT[8] = {0b00111, 0b01111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111};
+uint8_t UB[8] = {0b11111, 0b11111, 0b11111, 0b00000, 0b00000, 0b00000, 0b00000, 0b00000};
