@@ -5,7 +5,7 @@
 #define LED_TYPE 0          // RGB LED type: 0 - common cathode, 1 - common anode
 
 // Brightness control
-#define BRIGHT_LIMIT 150  // Signal level below which brightness will switch to minimum (0-1023)
+#define BRIGHT_LIMIT 150  // Signal level below which brightness will switch to a minimum (0-1023)
 #define LED_MAX_BR 255    // Maximum CO2 LED brightness (0 - 255)
 #define LED_MIN_BR 10     // Minimum CO2 LED brightness (0 - 255)
 #define LCD_MAX_BR 255    // Maximum LCD backlight brightness (0 - 255)
