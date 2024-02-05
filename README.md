@@ -16,6 +16,8 @@ Darba plāns 04/12 - 29/12:
 ![image](https://github.com/Kiril400/IZV2023PROG/assets/144676168/92f319e9-39c5-4d9c-b168-8568b625903c)
 Darba plāns 08/01 - 28/01
 ![image](https://github.com/Kiril400/IZV2023PROG/assets/144676168/4f2f4121-bd7e-4c24-9f32-d2b74da3efa3)
+Darba plāns 05/02 - 02/03
+![image](https://github.com/Kiril400/IZV2023PROG/assets/144676168/c5f7961b-924c-40b8-b766-fc27f61b46e5)
 Ierīces elektroshēma
 ![image](https://github.com/Kiril400/IZV2023PROG/blob/main/METEOSTATION%20CIRCUIT.png)
 
