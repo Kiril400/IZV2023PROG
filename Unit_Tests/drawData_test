@@ -1,0 +1,40 @@
+#include <Arduino.h>
+#include <LiquidCrystal_I2C.h>
+#include <RTClib.h>
+
+LiquidCrystal_I2C LCD_DISP(0x27, 20, 4);
+DateTime RealTime;
+
+void drawData() {
+  LCD_DISP.setCursor(15, 0);
+  if (RealTime.day() < 10) LCD_DISP.print(0);
+  LCD_DISP.print(RealTime.day());
+  LCD_DISP.print(".");
+  if (RealTime.month() < 10) LCD_DISP.print(0);
+  LCD_DISP.print(RealTime.month());
+}
+
+void setup() {
+  Serial.begin(9600);
+  LCD_DISP.init();
+  LCD_DISP.backlight();
+  
+  Serial.println("Enter date in the format 'dd,mm' (without quotes), where:");
+  Serial.println("  dd is day (1-31),");
+  Serial.println("  mm is month (1-12).");
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    String input = Serial.readStringUntil('\n');
+    int day = input.substring(0, input.indexOf(',')).toInt();
+    int month = input.substring(input.indexOf(',') + 1).toInt();
+
+    // Manually set the date
+    RealTime = DateTime(2020, month, day, 0, 0, 0); // Year is arbitrary
+
+    // Clear the display and draw the data
+    LCD_DISP.clear();
+    drawData();
+  }
+}
