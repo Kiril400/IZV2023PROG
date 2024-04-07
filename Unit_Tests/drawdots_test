@@ -1,0 +1,48 @@
+#include <Arduino.h>
+#include <LiquidCrystal_I2C.h>
+
+// Initialize the LCD display (modify the parameters as per your LCD's specification)
+LiquidCrystal_I2C LCD_DISP(0x27, 20, 4);
+
+// The drawdots function
+void drawdots(byte x, byte y, boolean state) {
+  byte code;
+  if (state) code = 165;
+  else code = 32;
+  LCD_DISP.setCursor(x, y);
+  LCD_DISP.write(code);
+  LCD_DISP.setCursor(x, y + 1);
+  LCD_DISP.write(code);
+}
+
+void setup() {
+  // Start the serial communication
+  Serial.begin(9600);
+  // Initialize the LCD display
+  LCD_DISP.init();
+  LCD_DISP.backlight();
+
+  // Instructions for the user
+  Serial.println("Enter command in the format 'x,y,state' (without quotes), where:");
+  Serial.println("  x is the column (0 to 19),");
+  Serial.println("  y is the row (0 to 3),");
+  Serial.println("  state is either 1 (dot) or 0 (no dot).");
+  Serial.println("Example: 5,1,1 will draw a dot at column 5, row 1.");
+}
+
+void loop() {
+  if (Serial.available() > 0) {
+    // Read the input from the serial console
+    String input = Serial.readStringUntil('\n');
+    int x = input.substring(0, input.indexOf(',')).toInt();
+    input = input.substring(input.indexOf(',') + 1);
+    int y = input.substring(0, input.indexOf(',')).toInt();
+    boolean state = input.substring(input.indexOf(',') + 1).toInt();
+
+    // Clear the display
+    LCD_DISP.clear();
+
+    // Draw the dot or clear it based on the input
+    drawdots(x, y, state);
+  }
+}
