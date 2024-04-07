@@ -1,0 +1,137 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Define the LCD as per hardware configuration
+LiquidCrystal_I2C LCD_DISP(0x27, 20, 4); // Adjust the I2C address and dimensions as needed
+
+// drawDig function
+   void drawDig(byte dig, byte x, byte y) {
+  switch (dig) {
+    case 0:
+      LCD_DISP.setCursor(x, y); // set cursor to column 0, line 0 (first row)
+      LCD_DISP.write(0);  // call each segment to create
+      LCD_DISP.write(1);  // top half of the number
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x, y + 1); // set cursor to colum 0, line 1 (second row)
+      LCD_DISP.write(3);  // call each segment to create
+      LCD_DISP.write(4);  // bottom half of the number
+      LCD_DISP.write(5);
+      break;
+    case 1:
+      LCD_DISP.setCursor(x + 1, y);
+      LCD_DISP.write(1);
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x + 2, y + 1);
+      LCD_DISP.write(5);
+      break;
+    case 2:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(6);
+      LCD_DISP.write(6);
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x, y + 1);
+      LCD_DISP.write(3);
+      LCD_DISP.write(7);
+      LCD_DISP.write(7);
+      break;
+    case 3:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(6);
+      LCD_DISP.write(6);
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x, y + 1);
+      LCD_DISP.write(7);
+      LCD_DISP.write(7);
+      LCD_DISP.write(5);
+      break;
+    case 4:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(3);
+      LCD_DISP.write(4);
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x + 2, y + 1);
+      LCD_DISP.write(5);
+      break;
+    case 5:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(0);
+      LCD_DISP.write(6);
+      LCD_DISP.write(6);
+      LCD_DISP.setCursor(x, y + 1);
+      LCD_DISP.write(7);
+      LCD_DISP.write(7);
+      LCD_DISP.write(5);
+      break;
+    case 6:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(0);
+      LCD_DISP.write(6);
+      LCD_DISP.write(6);
+      LCD_DISP.setCursor(x, y + 1);
+      LCD_DISP.write(3);
+      LCD_DISP.write(7);
+      LCD_DISP.write(5);
+      break;
+    case 7:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(1);
+      LCD_DISP.write(1);
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x + 1, y + 1);
+      LCD_DISP.write(0);
+      break;
+    case 8:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(0);
+      LCD_DISP.write(6);
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x, y + 1);
+      LCD_DISP.write(3);
+      LCD_DISP.write(7);
+      LCD_DISP.write(5);
+      break;
+    case 9:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(0);
+      LCD_DISP.write(6);
+      LCD_DISP.write(2);
+      LCD_DISP.setCursor(x + 1, y + 1);
+      LCD_DISP.write(4);
+      LCD_DISP.write(5);
+      break;
+    case 10:
+      LCD_DISP.setCursor(x, y);
+      LCD_DISP.write(32);
+      LCD_DISP.write(32);
+      LCD_DISP.write(32);
+      LCD_DISP.setCursor(x, y + 1);
+      LCD_DISP.write(32);
+      LCD_DISP.write(32);
+      LCD_DISP.write(32);
+      break;
+  }
+}
+
+void setup() {
+    // Initialize the LCD
+    LCD_DISP.init();
+    LCD_DISP.backlight();
+
+    // Serial communication for input
+    Serial.begin(9600);
+    Serial.println("Enter a digit (0-9):");
+}
+
+void loop() {
+    if (Serial.available()) {
+        int digit = Serial.parseInt();
+
+        // Check for valid digit and call drawDig function
+        if (digit >= 0 && digit <= 9) {
+            LCD_DISP.clear(); // Clear the screen
+            drawDig(digit, 0, 0); // Draw the digit at the top-left corner
+        } else {
+            Serial.println("Invalid input. Please enter a digit (0-9):");
+        }
+    }
+}
