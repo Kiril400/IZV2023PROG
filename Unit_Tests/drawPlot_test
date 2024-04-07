@@ -1,0 +1,58 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Initialize the LCD display. Adjust the I2C address and size as needed for your specific display.
+LiquidCrystal_I2C LCD_DISP(0x27, 20, 4);
+
+void drawPlot(byte pos, byte row, byte width, byte height, int min_val, int max_val, int *plot_array, String label) {
+    int max_value = -32000;
+    int min_value = 32000;
+
+    for (byte i = 0; i < 15; i++) {
+        if (plot_array[i] > max_value) max_value = plot_array[i];
+        if (plot_array[i] < min_value) min_value = plot_array[i];
+    }
+
+    LCD_DISP.setCursor(16, 0); LCD_DISP.print(max_value);
+    LCD_DISP.setCursor(16, 1); LCD_DISP.print(label);
+    LCD_DISP.setCursor(16, 2); LCD_DISP.print(plot_array[14]);
+    LCD_DISP.setCursor(16, 3); LCD_DISP.print(min_value);
+
+    for (byte i = 0; i < width; i++) {
+        int fill_val = plot_array[i];
+        fill_val = constrain(fill_val, min_val, max_val);
+        byte infill, fract;
+
+        infill = floor((float)(fill_val - min_val) / (max_val - min_val) * height * 10);
+        fract = (infill % 10) * 8 / 10;
+        infill /= 10;
+
+        for (byte n = 0; n < height; n++) {
+            LCD_DISP.setCursor(pos + i, row - n);
+            if (n < infill) {
+                LCD_DISP.write(0);
+            } else {
+                if (fract > 0 && n == infill) {
+                    LCD_DISP.write(fract);
+                } else {
+                    LCD_DISP.write(16);
+                }
+            }
+        }
+    }
+}
+
+void setup() {
+    LCD_DISP.init();
+    LCD_DISP.backlight();
+
+    // Example plot data
+    int plotData[15] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
+    
+    // Testing the drawPlot function
+    drawPlot(0, 3, 15, 4, 100, 1500, plotData, "Temp");
+}
+
+void loop() {
+    // Loop code here (if necessary)
+}
