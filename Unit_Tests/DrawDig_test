@@ -1,0 +1,34 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
+// Define the LCD as per your hardware configuration
+LiquidCrystal_I2C LCD_DISP(0x27, 20, 4); // Adjust the I2C address and dimensions as needed
+
+// Your drawDig function
+void drawDig(byte dig, byte x, byte y) {
+    // Your existing drawDig function goes here unchanged
+}
+
+void setup() {
+    // Initialize the LCD
+    LCD_DISP.init();
+    LCD_DISP.backlight();
+
+    // Serial communication for input
+    Serial.begin(9600);
+    Serial.println("Enter a digit (0-9):");
+}
+
+void loop() {
+    if (Serial.available()) {
+        int digit = Serial.parseInt();
+
+        // Check for valid digit and call drawDig function
+        if (digit >= 0 && digit <= 9) {
+            LCD_DISP.clear(); // Clear the screen
+            drawDig(digit, 0, 0); // Draw the digit at the top-left corner
+        } else {
+            Serial.println("Invalid input. Please enter a digit (0-9):");
+        }
+    }
+}
