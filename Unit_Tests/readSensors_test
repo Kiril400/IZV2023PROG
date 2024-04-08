@@ -1,0 +1,51 @@
+
+#include <Arduino.h>
+#include <LiquidCrystal.h>
+
+// Define LCD pins
+#define LCD_RS 12
+#define LCD_EN 11
+#define LCD_D4 5
+#define LCD_D5 4
+#define LCD_D6 3
+#define LCD_D7 2
+
+
+LiquidCrystal LCD_DISP(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
+
+
+float dispTemp = 25.5;
+float dispHum = 50.0;
+int dispCO2 = 800;
+float dispPres = 1013.25;
+int dispRain = 20;
+
+
+void drawSensors() {
+  // Display temperature
+  LCD_DISP.setCursor(0, 2);
+  LCD_DISP.print(String(dispTemp, 1)); // Display temperature with one decimal place
+  LCD_DISP.write(223); // Display degree symbol for Celsius
+  // Display humidity
+  LCD_DISP.setCursor(6, 2);
+  LCD_DISP.print(" " + String(dispHum) + "%  ");
+  // Display CO2 level
+  LCD_DISP.print(String(dispCO2) + " ppm");
+  if (dispCO2 < 1000) LCD_DISP.print(" ");
+  // Display atmospheric pressure and rain percentage
+  LCD_DISP.setCursor(0, 3);
+  LCD_DISP.print(String(dispPres) + " mm  rain ");
+  LCD_DISP.print(F("       ")); // Clear any previous data
+  LCD_DISP.setCursor(13, 3);
+  LCD_DISP.print(String(dispRain) + "%"); // Display rain percentage
+}
+
+void setup() {
+
+  LCD_DISP.begin(16, 4);
+}
+
+void loop() {
+
+  drawSensors();
+}
