@@ -1,0 +1,56 @@
+#include <LiquidCrystal.h>
+
+
+const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+// Simulated sensor data
+float temperature = 25.5; 
+float humidity = 60.0;    
+float pressure = 755.0;  
+float co2 = 400.0;         
+
+void setup() {
+
+  lcd.begin(16, 2);
+
+  redrawPlot();
+}
+
+void redrawPlot() {
+
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(temperature);
+  lcd.print("C");
+
+  lcd.setCursor(0, 1);
+  lcd.print("Humidity: ");
+  lcd.print(humidity);
+  lcd.print("%");
+
+  lcd.setCursor(8, 0);
+  lcd.print("Pressure: ");
+  lcd.print(pressure);
+  lcd.print("hPa");
+
+  lcd.setCursor(8, 1);
+  lcd.print("CO2: ");
+  lcd.print(co2);
+  lcd.print("ppm");
+}
+
+void loop() {
+
+  temperature += 0.1;
+  humidity += 0.2;
+  pressure += 0.3;
+  co2 += 1.0;
+
+
+  redrawPlot();
+
+  delay(1000);
+}
