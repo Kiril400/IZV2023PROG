@@ -1,0 +1,62 @@
+#include "GyverButton.h"
+
+
+#define BUTTON_PIN 4
+#define BUTTON_TYPE LOW_PULL
+#define BUTTON_MODE NORM_OPEN
+
+GButton button(BUTTON_PIN, BUTTON_TYPE, BUTTON_MODE);
+
+
+byte mode = 0;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  simulateButtonPress();
+
+  modesTick();
+
+
+  delay(100);
+}
+
+
+void simulateButtonPress() {
+  static unsigned long lastPressTime = 0;
+  unsigned long currentTime = millis();
+
+
+  if (currentTime - lastPressTime >= 2000) {
+    lastPressTime = currentTime;
+    button.tick(); 
+
+  
+    button.click();
+    Serial.println("Button clicked");
+  }
+}
+
+
+void modesTick() {
+  button.tick(); 
+
+  boolean changeFlag = false;
+  if (button.isClick()) {
+    mode++;
+    if (mode > 8) mode = 0;
+    changeFlag = true;
+  }
+  if (button.isHolded()) {
+    mode = 0;
+    changeFlag = true;
+  }
+
+  if (changeFlag) {
+    Serial.print("Current mode: ");
+    Serial.println(mode);
+  }
+}
