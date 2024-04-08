@@ -1,0 +1,26 @@
+
+#include <Arduino.h>
+
+#define LIGHT_SENS_PIN A0
+
+// Define the function to be tested
+void checkBrightness();
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int lightLevel = analogRead(LIGHT_SENS_PIN);
+
+
+  Serial.print("Simulated Light Level: ");
+  Serial.println(lightLevel);
+
+
+  checkBrightness();
+
+  
+  delay(1000); // Adjust delay as needed
+}
