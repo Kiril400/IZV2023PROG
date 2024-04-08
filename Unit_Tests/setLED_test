@@ -1,0 +1,29 @@
+#include <Arduino.h>
+
+#define LED_COMMON_PIN 7
+#define LED_RED_PIN 9
+#define LED_GREEN_PIN 6
+#define LED_BLUE_PIN 5
+
+void setLED(byte color) {
+
+}
+
+void setup() {
+
+  pinMode(LED_COMMON_PIN, OUTPUT);
+  pinMode(LED_RED_PIN, OUTPUT);
+  pinMode(LED_GREEN_PIN, OUTPUT);
+  pinMode(LED_BLUE_PIN, OUTPUT);
+}
+
+void loop() {
+  setLED(1);  
+  delay(1000);
+  setLED(2);  
+  delay(1000);
+  setLED(3);  
+  delay(1000);
+  setLED(0);  
+  delay(1000);
+}
